@@ -51,3 +51,4 @@ Jong Min (Jay) Lee [jmlee5629@gmail.com]
 ## Acknowledgement
 * This project was completed as one of the mandatory requirements for the Data Analyst Nanodegree at Udacity.
 * Online resources including discussions in [Stack Overflow](https://stackoverflow.com/) and technical documentations for packages and methods were referenced throughout the data wrangling and analysis processes.
+* Online documentation from `statsmodels` for `stats.proportion.proportions_ztest()` [link](https://www.statsmodels.org/dev/generated/statsmodels.stats.proportion.proportions_ztest.html) was referenced during two-sample Z-test from __Part II__.
