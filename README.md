@@ -58,6 +58,9 @@ This project investigates mock datasets from Udacity on an e-commerce company's 
 2. Two-tail and One-tail Test Results
     * p-value obtained from the logistic regression (two-tail test) was used to reproduce the p-value obtained from sampling estimated values from the null (one-tail test).
     * Consistency in observations was mentioned after the conversion of p-values and re-visited in __Conclusions__
+3. Calculation and Terminology
+    * In section 2 of __Part II__, the difference in the convert rates from the single simulation was corrected from 0.13% to 0.02%.
+    * An instance of the term _linear_ in _linear regression_ was changed to _logistic_. This project does not cover _linear_ regression.
 
 ## Author
 Jong Min (Jay) Lee [jmlee5629@gmail.com]
