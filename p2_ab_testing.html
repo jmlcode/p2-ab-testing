@@ -12735,7 +12735,7 @@ $$H_1: p_{new} - p_{old} &gt; 0$$</li>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>From this simulation, the difference in the convert rates between the two groups was approximately <strong>0.13%</strong>.</p>
+<p>From this simulation, the difference in the convert rates between the two groups was approximately 0.02%.</p>
 
 </div>
 </div>
@@ -12792,10 +12792,9 @@ $$H_1: p_{new} - p_{old} &gt; 0$$</li>
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># sampling distribution of 10000 differences in convert rates between groups</span>
 <span class="n">p_diffs</span> <span class="o">=</span> <span class="p">[]</span>
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">):</span>
-    <span class="n">p_new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="n">n</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">null_p_new</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="n">n_new</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="c1"># convert rate of control group in i-th iter</span>
-    <span class="n">p_old</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="n">n</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">null_p_old</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="n">n_old</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="c1"># convert rate of treatment group in i-th iter</span>
-    <span class="n">p_diffs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p_new</span> <span class="o">-</span> <span class="n">p_old</span><span class="p">)</span> <span class="c1"># store difference in convert rates between groups in i-th iter</span>
+<span class="n">new_converted_sim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="n">n</span> <span class="o">=</span> <span class="n">n_new</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">null_p_new</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">)</span><span class="o">/</span><span class="n">n_new</span> <span class="c1"># 10000 convert rates of control group</span>
+<span class="n">old_converted_sim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="n">n</span> <span class="o">=</span> <span class="n">n_old</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">null_p_old</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">)</span><span class="o">/</span><span class="n">n_old</span> <span class="c1"># 10000 convert rates of treatment group</span>
+<span class="n">p_diffs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_converted_sim</span> <span class="o">-</span> <span class="n">old_converted_sim</span><span class="p">)</span> <span class="c1"># 10000 differences in convert rates between groups</span>
 </pre></div>
 
 </div>
@@ -13351,7 +13350,7 @@ $$H_1: p_{new} - p_{old} &gt; 0$$</li>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>With the <code>statsmodels</code>, the model was instantiated and fit with the two columns <code>intercept</code> and <code>ab_page</code> to predict the value for <code>converted</code>. The summary of this linear regression is shown and discussed below.</p>
+<p>With the <code>statsmodels</code>, the model was instantiated and fit with the two columns <code>intercept</code> and <code>ab_page</code> to predict the value for <code>converted</code>. The summary of this logistic regression is shown and discussed below.</p>
 
 </div>
 </div>
@@ -13448,7 +13447,7 @@ $$H_1: p_{new} - p_{old} &gt; 0$$</li>
 $$log\frac{p_i}{1-p_i} = \beta_0 + \beta_1 * ab\_page_i$$
 Based on this model, the null hypothesis for the logistic regression is that whether a conversion occurs is independent of the landing page and can be quantitatively expressed as the following.
 $$\beta_1 = 0$$
-Although the p-value associated with <code>ab_page</code> is relatively small, this null hypothesis could not be rejected because this p-value of 19% is larger than the tolerance level of 5%. In fact, the coefficient associated with <code>ab_page</code> indicates that holding all other variables constant, the convert rate for the old page is approximately 1.02 times the convert rate for the new page.</p>
+Although the p-value associated with <code>ab_page</code> is relatively small, this null hypothesis could not be rejected because this p-value of 19% is larger than the tolerance level of 5%. In fact, the coefficient associated with <code>ab_page</code> indicates that holding all other variables constant, the convert rate for the old page is approximately 1.02 times the convert rate for the new page. In other words, the results from the logistic regression and those from the sampling distribution and the two-sample Z-test all indicate that the company should not implement the new page but keep the current one.</p>
 
 </div>
 </div>
@@ -13487,6 +13486,20 @@ Although the p-value associated with <code>ab_page</code> is relatively small, t
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This recommendation for the company can also be verified by converting the p-values between two-tail and one-tail tests.</p>
+<ul>
+<li>In case of the two-tail test, the proportion of extreme values below the expected values from the null is half the p-value from the logistic regression or <code>0.190/2=0.095</code>.</li>
+<li>In case of the one-tail test, the proportion of extreme values that were larger than the observed statistic was approximately 91% according to the p-value obatined from sampling values from the null hypothesis.</li>
+</ul>
+<p>The p-value from the two-tail test can be converted to the p-value from the one-tail test by excluding the proportion of extreme values below the expected values from the null, <code>1−0.095 = 0.905</code>, which is approximately 91%. Again, because the p-value from either tests is larger than the tolerance level of 5%, the null hypothesis could not be rejected.</p>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
@@ -14362,7 +14375,7 @@ Name: country, dtype: int64</pre>
 <p><a id='conclusions'></a></p>
 <h2 id="Conclusions">Conclusions<a class="anchor-link" href="#Conclusions">&#182;</a></h2><p>In this project, sampling distribution, two-sample Z-test, and logistic regressions were used to analyze the A/B tests conducted by the e-commerce company.</p>
 <p>The relatively small p-values obtained from both the sampling distribution of the differences in the convert rates between the treatment and the control groups and the two-sample Z-test did not provide enough evidence for rejecting the null hypothesis. In other words, according to the A/B tests, the company was not recommended to implement the new page because the convert rate for the old page was determined to be equal to or larger than the convert rate for the new page. Additional data concerned with the context in which the timestamp of each transaction was recorded or the interpretation of these timestamps would introduce potential improvements to the A/B testing in that outcomes of transactions can be monitored continuously. Findings from a more comprehensive analysis would provide the company with insights into the optimal duration of the A/B testing before the company makes a decision on implementing the new page or keeping the old page.</p>
-<p>The logistic regressions did not provide similar p-values as the sampling distribution and the Z-test in that the null and the alternative hypotheses for the logistic regressions were concerned with whether the outcome can be predicted with certain predictor variables. The first model aimed to predict the conversion with the landing page. The second model added country where the users live to the predictor variables of the first model. The third model included interaction terms among the predictor variables from the second model. From the first to the second and the third models, increase in the pseudo R-square suggested an increase in the capability of the model to account for the observed outcome and predict conversion.</p>
+<p>The logistic regressions did not provide similar p-values as the sampling distribution and the two-sample Z-test because the null and the alternative hypotheses for the logistic regressions were concerned with whether the outcome can be predicted with certain predictor variables. However, conversion of the p-value from the two-tail test to the one-tail test showed that the findings from the logistic regression also supported the null hypothesis. The first model aimed to predict the conversion with the landing page. The second model added country where the users live to the predictor variables of the first model. The third model included interaction terms among the predictor variables from the second model. From the first to the second and the third models, increase in the pseudo R-square suggested an increase in the capability of the model to account for the observed outcome and predict conversion.</p>
 
 </div>
 </div>
