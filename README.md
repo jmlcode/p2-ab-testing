@@ -45,6 +45,17 @@ This project investigates mock datasets from Udacity on an e-commerce company's 
   * re-iterates the statistics obtained from each section of the analysis.
   * summarizes the statistical and practical implications of these statistics.
 
+## Version Update from v1.0 to v2.0
+1. Code Performance
+    * Problem
+        - Simulation of binomial outcomes over 10,000 iterations with a **for-loop** takes considerable amount of time.
+    * Resolution
+        - **for-loop** was removed.
+        - The built-in Numpy method, `numpy.random.binomial()`, which was originally used in the **for-loop** was improved to perform silumations over 10,000 iterations.
+            * **n**: changed from 1 (outcomes 0 or 1) to objects `n_new` and `n_old`, the sample sizes for the two groups, one with the new page and the other with the old page.
+            * **size**: changed from objects `n_new` and `n_old` to the number of iterations, 10,000.
+        - Total number of successes from each iteration was divided by the sample size to compute the proportion of successes from each iteration.
+
 ## Author
 Jong Min (Jay) Lee [jmlee5629@gmail.com]
 
@@ -52,3 +63,4 @@ Jong Min (Jay) Lee [jmlee5629@gmail.com]
 * This project was completed as one of the mandatory requirements for the Data Analyst Nanodegree at Udacity.
 * Online resources including discussions in [Stack Overflow](https://stackoverflow.com/) and technical documentations for packages and methods were referenced throughout the data wrangling and analysis processes.
 * Online documentation from `statsmodels` for `stats.proportion.proportions_ztest()` [link](https://www.statsmodels.org/dev/generated/statsmodels.stats.proportion.proportions_ztest.html) was referenced during two-sample Z-test from __Part II__.
+* First improvement from v1.0 was motivated by the discussion in [Stack Overflow](https://softwareengineering.stackexchange.com/questions/254475/how-do-i-move-away-from-the-for-loop-school-of-thought).
